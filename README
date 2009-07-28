@@ -5,6 +5,9 @@ July 27, 2009
 I've added a setup.py and patches for OS X found here:
 http://d.hatena.ne.jp/perezvon/20070219/1171890423
 
+That part appears to be based on this one:
+http://twistedmatrix.com/documents/current/api/twisted.internet.kqreactor.html
+
 David Gilbert <dave@daveg.ca>
 2004-11-23
 
