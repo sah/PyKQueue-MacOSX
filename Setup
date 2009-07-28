@@ -1,0 +1,3 @@
+*shared*
+EC=~dwhite/kqueuemodule
+kqsyscallmodule kqsyscallmodule.c
