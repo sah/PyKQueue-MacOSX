@@ -1,33 +1,12 @@
-/* Generated automatically from /usr/local/lib/python1.5/config/config.c.in by makesetup. */
+/* Generated automatically from /System/Library/Frameworks/Python.framework/Versions/2.5/lib/python2.5/config/config.c.in by makesetup. */
 /* -*- C -*- ***********************************************
-Copyright 1991-1995 by Stichting Mathematisch Centrum, Amsterdam,
-The Netherlands.
+Copyright (c) 2000, BeOpen.com.
+Copyright (c) 1995-2000, Corporation for National Research Initiatives.
+Copyright (c) 1990-1995, Stichting Mathematisch Centrum.
+All rights reserved.
 
-                        All Rights Reserved
-
-Permission to use, copy, modify, and distribute this software and its
-documentation for any purpose and without fee is hereby granted,
-provided that the above copyright notice appear in all copies and that
-both that copyright notice and this permission notice appear in
-supporting documentation, and that the names of Stichting Mathematisch
-Centrum or CWI or Corporation for National Research Initiatives or
-CNRI not be used in advertising or publicity pertaining to
-distribution of the software without specific, written prior
-permission.
-
-While CWI is the initial source for this software, a modified version
-is made available by the Corporation for National Research Initiatives
-(CNRI) at the Internet address ftp://ftp.python.org.
-
-STICHTING MATHEMATISCH CENTRUM AND CNRI DISCLAIM ALL WARRANTIES WITH
-REGARD TO THIS SOFTWARE, INCLUDING ALL IMPLIED WARRANTIES OF
-MERCHANTABILITY AND FITNESS, IN NO EVENT SHALL STICHTING MATHEMATISCH
-CENTRUM OR CNRI BE LIABLE FOR ANY SPECIAL, INDIRECT OR CONSEQUENTIAL
-DAMAGES OR ANY DAMAGES WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR
-PROFITS, WHETHER IN AN ACTION OF CONTRACT, NEGLIGENCE OR OTHER
-TORTIOUS ACTION, ARISING OUT OF OR IN CONNECTION WITH THE USE OR
-PERFORMANCE OF THIS SOFTWARE.
-
+See the file "Misc/COPYRIGHT" for information on usage and
+redistribution of this file, and for a DISCLAIMER OF ALL WARRANTIES.
 ******************************************************************/
 
 /* Module configuration */
@@ -39,69 +18,70 @@ PERFORMANCE OF THIS SOFTWARE.
 
 #include "Python.h"
 
+#ifdef __cplusplus
+extern "C" {
+#endif
 
-extern void initthread();
-extern void initregex();
-extern void initpcre();
-extern void initposix();
-extern void initsignal();
-extern void initreadline();
-extern void initarray();
-extern void initcmath();
-extern void initmath();
-extern void initstrop();
-extern void initstruct();
-extern void inittime();
-extern void initoperator();
-extern void init_locale();
-extern void initfcntl();
-extern void initpwd();
-extern void initgrp();
-extern void initselect();
-extern void initsocket();
-extern void initerrno();
-extern void initcrypt();
+
+extern void initthread(void);
+extern void initsignal(void);
+extern void initposix(void);
+extern void initerrno(void);
+extern void initpwd(void);
+extern void init_sre(void);
+extern void init_codecs(void);
+extern void initzipimport(void);
+extern void init_symtable(void);
+extern void initxxsubtype(void);
 /* -- ADDMODULE MARKER 1 -- */
 
-extern void PyMarshal_Init();
-extern void initimp();
+extern void PyMarshal_Init(void);
+extern void initimp(void);
+extern void initgc(void);
+extern void init_ast(void);
+extern void init_types(void);
 
 struct _inittab _PyImport_Inittab[] = {
 
 {"thread", initthread},
-{"regex", initregex},
-{"pcre", initpcre},
-{"posix", initposix},
 {"signal", initsignal},
-{"readline", initreadline},
-{"array", initarray},
-{"cmath", initcmath},
-{"math", initmath},
-{"strop", initstrop},
-{"struct", initstruct},
-{"time", inittime},
-{"operator", initoperator},
-{"_locale", init_locale},
-{"fcntl", initfcntl},
-{"pwd", initpwd},
-{"grp", initgrp},
-{"select", initselect},
-{"socket", initsocket},
+{"posix", initposix},
 {"errno", initerrno},
-{"crypt", initcrypt},
+{"pwd", initpwd},
+{"_sre", init_sre},
+{"_codecs", init_codecs},
+{"zipimport", initzipimport},
+{"_symtable", init_symtable},
+{"xxsubtype", initxxsubtype},
 /* -- ADDMODULE MARKER 2 -- */
 
-	/* This module "lives in" with marshal.c */
+	/* This module lives in marshal.c */
 	{"marshal", PyMarshal_Init},
 
-	/* This lives it with import.c */
+	/* This lives in import.c */
 	{"imp", initimp},
+
+	/* This lives in Python/Python-ast.c */
+	{"_ast", init_ast},
+
+	/* This lives in Python/_types.c */
+	{"_types", init_types},
 
 	/* These entries are here for sys.builtin_module_names */
 	{"__main__", NULL},
 	{"__builtin__", NULL},
 	{"sys", NULL},
+	{"exceptions", NULL},
+
+	/* This lives in gcmodule.c */
+	{"gc", initgc},
 
 	/* Sentinel */
 	{0, 0}
 };
+
+
+#ifdef __cplusplus
+}
+#endif
+

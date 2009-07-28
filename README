@@ -1,4 +1,10 @@
 Python Extension Module for Kernel Queues
+Steven Hazel <sah@awesame.org>
+July 27, 2009
+
+I've added a setup.py and patches for OS X found here:
+http://d.hatena.ne.jp/perezvon/20070219/1171890423
+
 David Gilbert <dave@daveg.ca>
 2004-11-23
 

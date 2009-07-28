@@ -67,8 +67,8 @@ newKQEventObject (PyObject *arg)
 static void
 KQEvent_dealloc(KQEventObject *self)
 {
-  // PyObject_Del(self);
-  PyMem_DEL (self);
+  PyObject_Del(self);
+  // PyMem_DEL (self);
 }
 
 // --------------------------------------------------------------------------------
@@ -137,7 +137,7 @@ KQEvent_repr(KQEventObject *s)
 }
 
 statichere PyTypeObject KQEvent_Type = {
-  PyObject_HEAD_INIT(NULL)
+  PyObject_HEAD_INIT(&PyType_Type)
   0,                             // ob_size
   "KQEvent",                     // tp_name
   sizeof(KQEventObject),         // tp_basicsize
@@ -208,7 +208,8 @@ newKQueueObject (PyObject *arg)
   } else {
     int kqfd = kqueue();
     if (kqfd < 0) {
-      PyMem_DEL (self);
+	  Py_DECREF(self);
+	  // PyMem_DEL (self);
       PyErr_SetFromErrno (PyExc_OSError);
       return NULL;
     } else {
@@ -291,13 +292,15 @@ KQueue_kevent (KQueueObject * self, PyObject * args)
 
   /* Build timespec for timeout */
   totimespec.tv_sec = timeout / 1000;
-  totimespec.tv_nsec = (timeout % 1000) * 100000;
+  totimespec.tv_nsec = (timeout % 1000) * 1000000;
 
   // printf("timespec: sec=%d nsec=%d\n", totimespec.tv_sec, totimespec.tv_nsec);
 
   /* Make the call */
 
+  Py_BEGIN_ALLOW_THREADS
   gotNumEvents = kevent (self->fd, changelist, haveNumEvents, triggered, wantNumEvents, &totimespec);
+  Py_END_ALLOW_THREADS
 
   /* Don't need the input event list anymore, so get rid of it */
   free (changelist);
@@ -361,7 +364,7 @@ KQueue_getattr(KQueueObject *self, char *name)
 statichere PyTypeObject KQueue_Type = {
 	/* The ob_type field must be initialized in the module init function
 	 * to be portable to Windows without using C++. */
-	PyObject_HEAD_INIT(NULL)
+	PyObject_HEAD_INIT(&PyType_Type)
 	0,			/*ob_size*/
 	"KQueue",			/*tp_name*/
 	sizeof(KQueueObject),	/*tp_basicsize*/

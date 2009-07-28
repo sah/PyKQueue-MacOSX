@@ -75,10 +75,10 @@
 # === Bootstrap variables (edited through "make boot") ===
 
 # The prefix used by "make inclinstall libainstall" of core python
-installdir=	/usr/local
+installdir=	/System/Library/Frameworks/Python.framework/Versions/2.5
 
 # The exec_prefix used by the same
-exec_installdir=/usr/local
+exec_installdir=/System/Library/Frameworks/Python.framework/Versions/2.5
 
 # Source directory and VPATH in case you want to use VPATH.
 # (You will have to edit these two lines yourself -- there is no
@@ -112,26 +112,26 @@ MODLIBS=	_MODLIBS_
 
 # === Variables from configure (through sedscript) ===
 
-VERSION=	1.5
-CC=		cc
-LINKCC=		$(PURIFY) $(CC)
+VERSION=	2.5
+CC=		gcc
+LINKCC=		$(PURIFY) $(MAINCC)
 SGI_ABI=	
-OPT=		-O -pipe -D_THREAD_SAFE
-LDFLAGS=	-pthread 
+OPT=		-DNDEBUG -g -Os -Wall -Wstrict-prototypes
+LDFLAGS=	-Wl,-F.
 LDLAST=				
-DEFS=		-DHAVE_CONFIG_H
-LIBS=		-lxpg4 
-LIBM=		-lm
+DEFS=		@DEFS@
+LIBS=		-ldl 
+LIBM=		
 LIBC=		
 RANLIB=		ranlib
-MACHDEP=	freebsd4
+MACHDEP=	darwin
 SO=		.so
-LDSHARED=	gcc -shared ${LDFLAGS}
-CCSHARED=	-fpic
-LINKFORSHARED=	-Xlinker -export-dynamic
+LDSHARED=	$(CC) $(LDFLAGS) -bundle -undefined dynamic_lookup
+CCSHARED=	-pipe
+LINKFORSHARED=	-u _PyMac_Error -framework Python
 
 # Install prefix for architecture-independent files
-prefix=		/usr/local
+prefix=		/System/Library/Frameworks/Python.framework/Versions/2.5
 
 # Install prefix for architecture-dependent files
 exec_prefix=	${prefix}
@@ -168,7 +168,7 @@ MAKESETUP=	$(LIBPL)/makesetup
 MAKEFILE=	$(LIBPL)/Makefile
 CONFIGC=	$(LIBPL)/config.c
 CONFIGCIN=	$(LIBPL)/config.c.in
-SETUP=		$(LIBPL)/Setup.thread $(LIBPL)/Setup.local $(LIBPL)/Setup
+SETUP=		$(LIBPL)/Setup.config $(LIBPL)/Setup.local $(LIBPL)/Setup
 
 SYSLIBS=	$(LIBM) $(LIBC)
 

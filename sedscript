@@ -1,27 +1,26 @@
 1i\
 # Generated automatically from Makefile.pre.in by sedscript.
-s%@VERSION[@]%1.5%
-s%@CC[@]%cc%
+s%@VERSION[@]%2.5%
+s%@CC[@]%gcc%
+s%@LINKCC[@]%$(PURIFY) $(MAINCC)%
 s%@RANLIB[@]%ranlib%
-s%@OPT[@]%-O -pipe -D_THREAD_SAFE%
-s%@LDFLAGS[@]%-pthread %
+s%@OPT[@]%-DNDEBUG -g -Os -Wall -Wstrict-prototypes%
+s%@LDFLAGS[@]%-Wl,-F.%
 s%@LDLAST[@]%		%
 s%@SGI_ABI[@]%%
-s%@DEFS[@]%-DHAVE_CONFIG_H%
-s%@LIBS[@]%-lxpg4 %
-s%@LIBM[@]%-lm%
-s%@LIBC[@]%%
-s%@MACHDEP[@]%freebsd4%
-s%^prefix=.*%prefix=		/usr/local%
+s%@CCSHARED[@]%-pipe%
+s%@LINKFORSHARED[@]%-u _PyMac_Error -framework Python%
+s%@MACHDEP[@]%darwin%
+s%^prefix=.*%prefix=		/System/Library/Frameworks/Python.framework/Versions/2.5%
 s%^exec_prefix=.*%exec_prefix=	${prefix}%
 s%@SO[@]%.so%
-s%@LDSHARED[@]%gcc -shared ${LDFLAGS}%
-s%@CCSHARED[@]%-fpic%
-s%@LINKFORSHARED[@]%-Xlinker -export-dynamic%
-s%@LINKCC[@]%$(PURIFY) $(CC)%
+s%@LDSHARED[@]%$(CC) $(LDFLAGS) -bundle -undefined dynamic_lookup%
+s%@LIBS[@]%-ldl %
+s%@LIBM[@]%%
+s%@LIBC[@]%%
 /^#@SET_CCC@/d
-/^installdir=/s%=.*%=	/usr/local%
-/^exec_installdir=/s%=.*%=/usr/local%
+/^installdir=/s%=.*%=	/System/Library/Frameworks/Python.framework/Versions/2.5%
+/^exec_installdir=/s%=.*%=/System/Library/Frameworks/Python.framework/Versions/2.5%
 /^srcdir=/s%=.*%=		.%
 /^VPATH=/s%=.*%=		.%
 /^LINKPATH=/s%=.*%=	%
