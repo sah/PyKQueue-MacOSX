@@ -7,5 +7,6 @@ setup(
     version="1.3",
     ext_modules=[
         Extension("kqsyscall", sources=["kqsyscallmodule.c"])
-    ]
+    ],
+    py_modules=['KQueue']
 )
