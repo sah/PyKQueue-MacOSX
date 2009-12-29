@@ -5,7 +5,12 @@ July 27, 2009
 This is PyKQueue-MacOSX.  
 It works with Twisted's kqreactor on Mac OS X, as of Twisted 8.2.0.
 
-It is based on PyKQueue 1.4, found here:
+You probably only need this if you're using Twisted or Python <2.6 on 
+Mac OS X.  This package should eventually become unnecessary, since 
+kqueue support is included in the Python standard library as of 2.6:
+http://docs.python.org/library/select.html
+
+PyKQueue-MacOSX is based on PyKQueue 1.4, found here:
 http://ox.eicat.ca/~dgilbert/files/PyKQueue.html
 
 Which is in turn based on PyKQueue 1.1 through 1.3, found here:
@@ -17,12 +22,15 @@ http://d.hatena.ne.jp/perezvon/20070219/1171890423
 That patch appears to be based on this one:
 http://twistedmatrix.com/documents/current/api/twisted.internet.kqreactor.html
 
-There's a PyKQueue 2.0 in the Twisted repository, which is an
+There's also a PyKQueue 2.0 in the Twisted repository, which is an
 API-incompatible update to this code.  It aims to work on Mac OS X and
 FreeBSD, but is incompatible with the released version of Twisted as
 of 8.2.0.  It can be found here:
 http://twistedmatrix.com/trac/browser/sandbox/foom/pykqueue
 
+-sah
+
+---
 David Gilbert <dave@daveg.ca>
 2004-11-23
 
